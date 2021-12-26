@@ -80,3 +80,73 @@ var displayQuestion = function() {
     buttonC.textContent = questions[questionIndex].options.c
     buttonD.textContent = questions[questionIndex].options.d
   }
+
+  function startGame() {
+    displayQuestion();
+  
+    startButton.setAttribute("hidden", true);
+    bio.setAttribute("hidden", true);
+    options.style="display:block"
+  
+    startTimer();
+  }
+
+  // get button ???? start function 
+function next (event) {
+
+    var element = event.target;
+  
+    if (element.matches(".button-choice")) {
+      var choice = element.id
+    }
+  
+    if (choice === questions[questionIndex].correctOption) {
+      score++;
+      questionIndex++;
+      displayQuestion();
+  
+    } else {
+      secondsLeft -= 10;
+      questionIndex++;
+      displayQuestion();
+    }
+  
+  
+    if (questionIndex === questions.length) {
+      endGame();
+    }
+  }
+
+  function endGame () {
+    options.style="display:none"
+  }
+
+  function startTimer() {
+    // Sets interval in variable
+    var timerInterval = setInterval(function() {
+      secondsLeft--;
+      timeEl.textContent = secondsLeft + " seconds left";
+  
+      if(secondsLeft === 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        // Calls function to create and append image
+        sendMessage();
+        endGame();
+      }
+  
+    }, 1000);
+  }
+
+  // Function to create and append colorsplosion image
+function sendMessage() {
+    timeEl.textContent = "GAME OVER";
+  
+  }
+  
+  startButton.addEventListener("click", startGame);
+  
+  options.addEventListener("click", next);
+
+
+
