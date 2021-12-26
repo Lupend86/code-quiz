@@ -141,7 +141,6 @@ function next (event) {
   // Function to create and append colorsplosion image
 function sendMessage() {
     timeEl.textContent = "GAME OVER";
-  
   }
   
   startButton.addEventListener("click", startGame);
